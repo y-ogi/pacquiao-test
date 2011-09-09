@@ -26,12 +26,15 @@ TEMPLATE_DIRS = (
 )
 
 USE_I18N = False
-DEFAULT_LANG = 'en'
+DEFAULT_LANG = 'ja'
 
 INSTALLED_APPS = (
+    'index',
+    'common',
 )
 
 APP_MOUNT_POINTS = {
+    'index': '/',
 }
 
 # You can remove following settings if unnecessary.

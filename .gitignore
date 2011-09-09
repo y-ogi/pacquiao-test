@@ -7,3 +7,5 @@
 .pydevproject
 .settings
 .project
+common/templates_compiled
+index/templates_compiled

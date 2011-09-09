@@ -1,0 +1,13 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Top Page - index</title>
+</head>
+<body>
+user_count: {{ user_count }}<br/>
+<form action="{{ url_for('index/generate_user') }}" method="POST"><input type="submit" value="100人追加"></form>
+<form action="{{ url_for('index/generate_user') }}" method="POST"><input type="hidden" name="quantity" value="10000"><input type="submit" value="10000人追加"></form>
+schedule_count: {{ schedule_count }}<br/>
+</body>
+</html>
