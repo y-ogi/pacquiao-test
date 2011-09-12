@@ -19,6 +19,7 @@ view_groups = [
         Rule('/task/delete_all_schedules', endpoint='task_delete_all_schedules', view='index.tasks.delete_all_schedules'),
         Rule('/delete_all_logs', endpoint='delete_all_logs', view='index.views.delete_all_logs'),
         Rule('/task/delete_all_logs', endpoint='task_delete_all_logs', view='index.tasks.delete_all_logs'),
+        Rule('/summary_daily_schedules', endpoint='summary_daily_schedules', view='index.views.summary_daily_schedules'),
         Rule('/task/summary_daily_schedules', endpoint='task_summary_daily_schedules', view='index.tasks.summary_daily_schedules'),
     )
 ]

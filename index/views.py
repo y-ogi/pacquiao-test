@@ -8,6 +8,7 @@ from google.appengine.ext import db
 from kay.utils import render_to_response, url_for
 from werkzeug import redirect, Response
 import logging
+from werkzeug.exceptions import BadRequest
 
 
 
@@ -60,3 +61,15 @@ def delete_all_logs(request):
         params = {}
         taskqueue.add(url=url_for('index/task_delete_all_logs'), params=params)
     return redirect(url_for('index/index'))
+
+def summary_daily_schedules(request):
+    if request.method == 'POST':
+        # 対象日付取得　
+        date = request.values.get('date')
+        if not date:
+            raise BadRequest
+        name = 'summary_daily_schedules'
+        params = {'date':date, 'name':name}
+        taskqueue.add(url=url_for('index/task_summary_daily_schedules'), params=params)
+    return redirect(url_for('index/index'))
+        

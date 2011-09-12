@@ -131,7 +131,7 @@ def delete_all_logs(request):
 def summary_daily_schedules(request):
     if request.method == 'POST':
         # プロセス名を取得
-        process_name = request.values.get('process_name')
+        process_name = request.values.get('name')
         process = Process(name=process_name, is_processed=False)
         process.put()
         
