@@ -5,9 +5,23 @@
 <title>Top Page - index</title>
 </head>
 <body>
-user_count: {{ user_count }}<br/>
-<form action="{{ url_for('index/generate_user') }}" method="POST"><input type="submit" value="100人追加"></form>
-<form action="{{ url_for('index/generate_user') }}" method="POST"><input type="hidden" name="quantity" value="10000"><input type="submit" value="10000人追加"></form>
-schedule_count: {{ schedule_count }}<br/>
+<h2>User</h2>
+count: {{ user_count }}<br/>
+<form action="{{ url_for('index/generate_users') }}" method="POST"><input type="text" name="quantity" value="100"><input type="submit" value="追加"></form>
+<form action="{{ url_for('index/delete_all_users') }}" method="POST"><input type="submit" value="全削除"></form>
+
+<hr/>
+
+<h2>Schedule</h2>
+count: {{ schedule_count }}<br/>
+<form action="{{ url_for('index/generate_schedules') }}" method="POST"><input type="submit" value="追加"></form>
+<form action="{{ url_for('index/delete_all_schedules') }}" method="POST"><input type="submit" value="全削除"></form>
+
+<hr/>
+
+<h2>Log</h2>
+count: {{ log_count }}<br/>
+<form action="{{ url_for('index/delete_all_logs') }}" method="POST"><input type="submit" value="全削除"></form>
+
 </body>
 </html>
