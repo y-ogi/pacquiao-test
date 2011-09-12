@@ -118,7 +118,11 @@ def generate_schedules(request):
 
 def delete_all_schedules(request):
     if request.method == 'POST':
-        db.delete(Schedule.all())
+        #db.delete(Schedule.all())
+        while True:
+            schedules = Schedule.all().fetch(100)
+            if len(schedules) == 0: break
+            db.delete(schedules)
     return Response(status=200)
 
 def delete_all_logs(request):
