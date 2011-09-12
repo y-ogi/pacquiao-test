@@ -18,7 +18,8 @@ def index(request):
     user_count = User.all().count(999999)
     schedule_count = Schedule.all().count(999999)
     log_count = Log.all().count(999999)
-    process = Process.all().order('-created_at')[0]
+    processes = Process.all().order('-created_at').fetch(1)
+    process = processes[0] if len(processes) > 0 else None
     return render_to_response('index/index.html', {
         'user_count': user_count,
         'schedule_count': schedule_count,
