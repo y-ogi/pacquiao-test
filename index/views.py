@@ -2,20 +2,14 @@
 """
 index.views
 """
-import logging
-
+from common.models import User, Schedule, Process, Log
 from google.appengine.api import taskqueue
 from google.appengine.ext import db
+from kay.utils import render_to_response, url_for
+from werkzeug import redirect, Response
+import logging
 
-from werkzeug import (
-    redirect, Response
-)
-from kay.utils import (
-    render_to_response, url_for
-)
-from common.models import (
-    User, Schedule, Log
-)
+
 
 # Create your views here.
 
@@ -23,10 +17,12 @@ def index(request):
     user_count = User.all().count(999999)
     schedule_count = Schedule.all().count(999999)
     log_count = Log.all().count(999999)
+    process = Process.all().order('-created_at')[0]
     return render_to_response('index/index.html', {
         'user_count': user_count,
         'schedule_count': schedule_count,
         'log_count': log_count,
+        'process': process,
     })
 
 def generate_users(request):

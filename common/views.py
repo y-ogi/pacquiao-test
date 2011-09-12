@@ -2,28 +2,9 @@
 """
 common.views
 """
+from google.appengine.ext import blobstore
 
-"""
-import logging
-
-from google.appengine.api import users
-from google.appengine.api import memcache
-from werkzeug import (
-  unescape, redirect, Response,
-)
-from werkzeug.exceptions import (
-  NotFound, MethodNotAllowed, BadRequest
-)
-
-from kay.utils import (
-  render_to_response, reverse,
-  get_by_key_name_or_404, get_by_id_or_404,
-  to_utc, to_local_timezone, url_for, raise_on_dev
-)
-from kay.i18n import gettext as _
-from kay.auth.decorators import login_required
-
-"""
+from kay.handlers import blobstore_handlers
 
 from kay.utils import render_to_response
 
@@ -31,4 +12,12 @@ from kay.utils import render_to_response
 # Create your views here.
 
 def index(request):
-  return render_to_response('common/index.html', {'message': 'Hello'})
+    return render_to_response('common/index.html', {'message': 'Hello'})
+
+
+class ServeHandler(blobstore_handlers.BlobstoreDownloadHandler):
+    def get(self, resource):
+        import urllib
+        resource = str(urllib.unquote(resource))
+        blob_info = blobstore.BlobInfo.get(resource)
+        return self.send_blob(blob_info)

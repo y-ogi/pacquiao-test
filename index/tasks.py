@@ -2,21 +2,19 @@
 """
 index.tasks
 """
+from __future__ import with_statement
+from common.models import User, Schedule, Process, Log
+from common.utils import generate_string
+from datetime import datetime, date, timedelta
+from google.appengine.api import files
+from google.appengine.ext import db
+from werkzeug import Response
+from werkzeug.exceptions import BadRequest
 import logging
 import random
-from datetime import (
-    datetime, date, timedelta
-)
 
-from google.appengine.ext import db
+# 実験的BlobStore書き込みようFileAPI
 
-from werkzeug import (
-    Response
-)
-from common.utils import generate_string
-from common.models import (
-    User, Schedule, Log
-)
 
 def generate_users(request):
     
@@ -128,5 +126,37 @@ def delete_all_schedules(request):
 def delete_all_logs(request):
     if request.method == 'POST':
         db.delete(Log.all())
+    return Response(status=200)
+
+def summary_daily_schedules(request):
+    if request.method == 'POST':
+        # プロセス名を取得
+        process_name = request.values.get('process_name')
+        process = Process(name=process_name, is_processed=False)
+        process.put()
+        
+        # 対象日を取得
+        target_date = request.values.get('date')
+        if not target_date:
+            raise BadRequest
+        # 日付に変換
+        date = datetime.strptime(target_date, '%Y%m%d')
+        
+        # 対象となるスケジュールを取得
+        schedules = Schedule.schedules_from_date(date)
+        logging.debug(schedules)
+        
+        # blobに書き込む
+        file_name = files.blobstore.create(mime_type='application/octet-stream')
+        with files.open(file_name, 'a') as f:
+            for schedule in schedules:
+                f.write('user:%s date:%s\n' % (schedule.user.name, schedule.schedule_at,))
+        files.finalize(file_name)
+        
+        # blobキーを取得
+        blob_key = files.blobstore.get_blob_key(file_name)
+        process.content = str(blob_key)
+        process.put()
+        
     return Response(status=200)
     
