@@ -21,6 +21,9 @@ view_groups = [
         Rule('/task/delete_all_logs', endpoint='task_delete_all_logs', view='index.tasks.delete_all_logs'),
         Rule('/summary_daily_schedules', endpoint='summary_daily_schedules', view='index.views.summary_daily_schedules'),
         Rule('/task/summary_daily_schedules', endpoint='task_summary_daily_schedules', view='index.tasks.summary_daily_schedules'),
+        
+        Rule('/file_upload', endpoint='file_upload', view='index.views.file_upload'),
+        
     )
 ]
 

@@ -27,6 +27,10 @@ def index(request):
         'process': process,
     })
 
+def file_upload(request):
+    return render_to_response('index/file_upload.html', {
+    })
+
 def generate_users(request):
     if request.method == 'POST':
         # 量
