@@ -11,6 +11,7 @@ from views import ServeHandler, UploadHandler
 view_groups = [
     ViewGroup(
         Rule('/', endpoint='index', view='common.views.index'),
+        Rule('/file_info/<string:resource>', endpoint='file_info', view='common.views.file_info'),
         Rule('/upload', endpoint='upload', view=UploadHandler()),
         Rule('/upload_url', endpoint='upload_url', view='common.apis.upload_url'),
         Rule('/serve/<string:resource>', endpoint='serve', view=ServeHandler()),

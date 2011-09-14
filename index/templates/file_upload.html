@@ -6,30 +6,21 @@
 </head>
 <body>
 <input id="fileupload" type="file" name="files" multiple>
+<div id="result"></div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.15/jquery-ui.min.js"></script>
 <script src="/media/js/jquery.iframe-transport.js"></script>
 <script src="/media/js/jquery.fileupload.js"></script>
 <script>
-/*
-$(function () {
-    $('#fileupload').fileupload({
-        dataType: 'json',
-        url: 'upload.php',
-        done: function (e, data) {
-            $.each(data.result, function (index, file) {
-                $('<p/>').text(file.name).appendTo('body');
-            });
-        }
-    });
-});*/
-
 $('#fileupload').fileupload({
     add: function (e, data) {
         var that = this;
         $.getJSON('/common/upload_url', function (url) {
             data.url = url;
-            data.submit();
+            data.submit()
+                .success(function(result, textStatus, jqXHR){
+                    $('#result').html("success:" + result.filename + " <a href=\"/common/serve/" + result.resource + "\">download</a>");
+                });
         });
     }
 });
