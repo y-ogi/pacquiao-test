@@ -16,9 +16,21 @@ $(function () {
     'use strict';
 
     // Initialize the jQuery File Upload widget:
-    $('#fileupload').fileupload();
+    //$('#fileupload').fileupload();
+
+
+    $('#fileupload').fileupload({
+        add: function (e, data) {
+            var that = this;
+            $.getJSON('/common/upload_url', function (url) {
+                data.url = url;
+                $.blueimpUI.fileupload.prototype.options.add.call(that, e, data);
+            });
+        }
+    });
 
     // Load existing files:
+    /*
     $.getJSON($('#fileupload form').prop('action'), function (files) {
         var fu = $('#fileupload').data('fileupload');
         fu._adjustMaxNumberOfFiles(-files.length);
@@ -28,7 +40,7 @@ $(function () {
                 // Fix for IE7 and lower:
                 $(this).show();
             });
-    });
+    });*/
 
     // Open download dialogs via iframes,
     // to prevent aborting current uploads:

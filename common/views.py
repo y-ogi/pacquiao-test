@@ -15,7 +15,13 @@ def index(request):
 
 def file_info(request, resource):
     blob_info = blobstore.BlobInfo.get(resource)
-    dct = {'filename': blob_info.filename, 'size': blob_info.size, 'resource': resource}
+    dct = [{
+            'filename': blob_info.filename, 
+            'name': blob_info.filename, 
+            'size': blob_info.size, 
+            'resource': resource,
+            'url': url_for('common/serve', resource=resource),
+            },]
     return dict_to_response(request, dct)
 
 class ServeHandler(blobstore_handlers.BlobstoreDownloadHandler):

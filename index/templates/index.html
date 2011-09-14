@@ -28,5 +28,10 @@ count: {{ log_count }}<br/>
 <h2>Report(Process)</h2>
 <form action="{{ url_for('index/summary_daily_schedules') }}" method="POST"><input type="text" name="date" value="20111010"><input type="submit" value="作成"></form>
 {% if process %}<a href="{{ url_for('common/serve', resource=process.content) }}">download</a>{% endif %}
+
+<hr/>
+
+<h2>File upload</h2>
+<a href="{{ url_for('index/file_upload2') }}">file uplaod page</a>
 </body>
 </html>
