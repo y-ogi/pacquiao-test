@@ -23,6 +23,7 @@ view_groups = [
         Rule('/task/summary_daily_schedules', endpoint='task_summary_daily_schedules', view='index.tasks.summary_daily_schedules'),
         
         Rule('/file_upload', endpoint='file_upload', view='index.views.file_upload'),
+        Rule('/file_upload2', endpoint='file_upload2', view='index.views.file_upload2'),
         
     )
 ]

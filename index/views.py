@@ -30,6 +30,10 @@ def index(request):
 def file_upload(request):
     return render_to_response('index/file_upload.html', {
     })
+    
+def file_upload2(request):
+    return render_to_response('index/file_upload2.html', {
+    })
 
 def generate_users(request):
     if request.method == 'POST':
