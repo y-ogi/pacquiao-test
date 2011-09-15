@@ -41,3 +41,11 @@ class Log(db.Model):
     name = db.StringProperty(required=False)
     started_at = db.DateTimeProperty(auto_now_add=True)
     ended_at = db.DateTimeProperty(auto_now=True)
+    
+class MailTemplate(db.Model):    
+    name = db.StringProperty(required=True)
+    subject = db.StringProperty(required=True)
+    body = db.TextProperty(required=True)
+    
+    created_at = db.DateTimeProperty(auto_now_add=True)
+    updated_at = db.DateTimeProperty(auto_now=True)

@@ -2,7 +2,8 @@
 """
 index.views
 """
-from common.models import User, Schedule, Process, Log
+from common.utils.mail import send_mail_with_template
+from common.models import User, Schedule, Process, Log, MailTemplate
 from google.appengine.api import taskqueue
 from google.appengine.ext import db
 from kay.utils import render_to_response, url_for
@@ -34,6 +35,21 @@ def file_upload(request):
 def file_upload2(request):
     return render_to_response('index/file_upload2.html', {
     })
+
+def mail_send(request):
+    if request.method == 'POST':
+        template_key = request.values.get('template_key')
+        m_to = request.values.get('to')
+        name = request.values.get('name')
+        
+        send_mail_with_template(m_to, template_key, name=name)
+        
+        return redirect(url_for('index/mail_send'))
+    else:
+        mail_templates = MailTemplate.all()
+        return render_to_response('index/mail_send.html', {
+            'mail_templates': mail_templates,
+        })
 
 def generate_users(request):
     if request.method == 'POST':

@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Mail Template & Send Mail</title>
+</head>
+<body>
+<h2>Template</h2>
+<a href="/admin/mailtemplate/create">add mail template</a>
+<hr/>
+<h2>Mail</h2>
+<form action="" method="POST">
+<select name="template_key" id="mail_template">
+    {% for mail_template in mail_templates %}
+    <option value="{{ mail_template.key() }}">{{ mail_template.name }}</option>
+    {% endfor %}
+</select><br/>
+TO: <input type="text" name="to" id="to" value=""/><br/>
+Subject:<input type="text" name="subject" id="subject" value=""/><br/>
+<textarea id="body" name="body" rows="10" cols="30"></textarea><br/>
+<input type="text" name="name" value="#name"/>
+<input type="submit" value="送信" id="send"/>
+</form>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script>
+var set_body = function(key) {
+    $.get('/common/mail_info/' + key, function(data){
+        $('#body').html(data.body);
+        $('#subject').attr("value", data.subject);
+    });
+}
+$('select').change(function() {
+    set_body($(this).attr('value'));
+});
+set_body($($('option')[0]).attr('value'));
+</script>
+</body> 
+</html>

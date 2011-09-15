@@ -25,6 +25,7 @@ view_groups = [
         Rule('/file_upload', endpoint='file_upload', view='index.views.file_upload'),
         Rule('/file_upload2', endpoint='file_upload2', view='index.views.file_upload2'),
         
+        Rule('/mail_send', endpoint='mail_send', view='index.views.mail_send'),
     )
 ]
 

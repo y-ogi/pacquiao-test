@@ -15,6 +15,7 @@ view_groups = [
         Rule('/upload', endpoint='upload', view=UploadHandler()),
         Rule('/upload_url', endpoint='upload_url', view='common.apis.upload_url'),
         Rule('/serve/<string:resource>', endpoint='serve', view=ServeHandler()),
+        Rule('/mail_info/<string:key>', endpoint='mail_info', view='common.apis.mail_info'),
     )
 ]
 
