@@ -9,6 +9,9 @@ from google.appengine.api import mail
 from google.appengine.ext import db
 
 def send_mail_with_template(to, template_key, **kw):
+    """
+    メールテンプレートを元にメール送信を行う
+    """
     mail_template = db.get(template_key)
     # テンプレート適用
     from jinja2 import Template
@@ -19,4 +22,7 @@ def send_mail_with_template(to, template_key, **kw):
     
     
 def send_mail(sender, to, subject, body, **kw):
+    """
+    メール送信を行う
+    """
     mail.send_mail(sender, to, subject, body)

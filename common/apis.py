@@ -10,11 +10,16 @@ from kay.utils import url_for
 from common.utils import dict_to_response
 
 def upload_url(request):
-    # アップロード先のURL取得
+    """
+    アップロード先のURLを取得
+    """
     upload_url = '"%s"' % (blobstore.create_upload_url(url_for('common/upload')),)
     return Response(upload_url, content_type='application/json', status=200)
 
 def mail_info(request, key):
+    """
+    メールテンプレートの情報
+    """
     mail_template = db.get(key)
     dct = dict(name=mail_template.name,
                subject=mail_template.subject,

@@ -1,0 +1,22 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Top Page - index</title>
+</head>
+<body>
+
+<h2>Add User</h2>
+<a href="/admin/user/list">add user page</a>
+<hr/>
+<h2>Search</h2>
+<form action="" method="GET">
+<input type="text" name="word">
+<input type="submit" value="検索">
+</form>
+<hr/>
+{% for user in users %}
+{{ user.name }}<br/>
+{% endfor %}
+</body>
+</html>

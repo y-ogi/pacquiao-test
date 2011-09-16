@@ -7,12 +7,16 @@
 from kay.routing import (
   ViewGroup, Rule
 )
-from admin.views import AdminMailTemplateCRUDViewGroup
+from admin.views import (
+    AdminUserCRUDViewGroup,
+    AdminMailTemplateCRUDViewGroup,
+)
 
 view_groups = [
     ViewGroup(
         Rule('/', endpoint='index', view='admin.views.index'),
     ),
+    AdminUserCRUDViewGroup(),
     AdminMailTemplateCRUDViewGroup(),
 ]
 

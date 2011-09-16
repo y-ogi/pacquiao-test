@@ -3,7 +3,7 @@
 index.views
 """
 from common.utils.mail import send_mail_with_template
-from common.models import User, Schedule, Process, Log, MailTemplate
+from common.models import User, Schedule, Process, Log, MailTemplate, InvertedNameIndex
 from google.appengine.api import taskqueue
 from google.appengine.ext import db
 from kay.utils import render_to_response, url_for
@@ -51,6 +51,17 @@ def mail_send(request):
             'mail_templates': mail_templates,
         })
 
+def search(request):
+    users = []
+    word = request.values.get('word', None)
+    if word:
+        users = InvertedNameIndex.search(word)
+    return render_to_response('index/search.html', {
+        'users': users,
+    })
+# -----------------------------------------------------------------------------
+# view for some tasks
+# -----------------------------------------------------------------------------
 def generate_users(request):
     if request.method == 'POST':
         # 量

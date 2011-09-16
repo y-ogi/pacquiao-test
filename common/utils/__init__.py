@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import logging
 import string
 import random
 import datetime
@@ -11,10 +12,10 @@ except ImportError:
 from werkzeug import Response
 
 def generate_string(length=10):
-    ret = ''
-    for i in range(0, length):
-        ret = ret + random.choice(string.lowercase)
-    return ret
+    """
+    ランダムな文字列を生成
+    """
+    return "".join([random.choice(string.lowercase) for i in range(0,length)])
 
 def dict_to_response(request, dct, *args, **kwargs):
     """
